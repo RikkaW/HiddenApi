@@ -8,15 +8,6 @@ buildscript {
     repositories {
         mavenCentral()
         google()
-        maven { url 'https://jitpack.io' }
-
-        // In case newly published library not yet synced with maven central
-        maven {
-            url("https://s01.oss.sonatype.org/content/repositories/releases/")
-            content {
-                includeGroup("dev.rikka.tools.refine")
-            }
-        }
         mavenLocal()
     }
     dependencies {
@@ -30,14 +21,6 @@ allprojects {
     repositories {
         mavenCentral()
         google()
-
-        // In case newly published library not yet synced with maven central
-        maven {
-            url("https://s01.oss.sonatype.org/content/repositories/releases/")
-            content {
-                includeGroupByRegex("dev.rikka.*")
-            }
-        }
         mavenLocal()
     }
     tasks.withType(Javadoc) {
@@ -70,13 +53,13 @@ ext {
     POM_INCEPTION_YEAR = "2022"
     POM_PACKAGING = "aar"
 
-    POM_URL = "https://github.com/RikkaApps/Shizuku-API"
-    POM_SCM_URL = "https://github.com/RikkaApps/Shizuku-API"
-    POM_SCM_CONNECTION = "scm:git@github.com:RikkaApps/Shizuku-API.git"
-    POM_SCM_DEV_CONNECTION = "scm:git@github.com:RikkaApps/Shizuku-API.git"
+    POM_URL = "https://github.com/RikkaW/HiddenApi"
+    POM_SCM_URL = "https://github.com/RikkaW/HiddenApi"
+    POM_SCM_CONNECTION = "scm:git@github.com:RikkaW/HiddenApi.git"
+    POM_SCM_DEV_CONNECTION = "scm:git@github.com:RikkaW/HiddenApi.git"
 
     POM_LICENCE_NAME = "MIT License"
-    POM_LICENCE_URL = "https://github.com/RikkaApps/Shizuku-API/blob/master/LICENSE"
+    POM_LICENCE_URL = "https://github.com/RikkaW/HiddenApi/blob/master/LICENSE"
     POM_LICENCE_DIST = "repo"
 
     POM_DEVELOPER_ID = "rikka"

@@ -367,10 +367,13 @@ public class SystemService {
         }
     }
 
-    public static int getPackageUid(String packageName, int flags, int userId) throws RemoteException {
+    @SuppressLint("NewApi")
+    public static int getPackageUid(String packageName, long flags, int userId) throws RemoteException {
         IPackageManager pm = packageManager.get();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (BuildCompat.isAtLeastT()) {
             return pm.getPackageUid(packageName, flags, userId);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return pm.getPackageUid(packageName, (int) flags, userId);
         } else {
             return pm.getPackageUid(packageName, userId);
         }
