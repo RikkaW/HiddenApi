@@ -392,9 +392,14 @@ public class SystemService {
         }
     }
 
+    @SuppressLint("NewApi")
     @Nullable
-    public static ProviderInfo resolveContentProvider(String name, int flags, int userId) throws RemoteException {
-        return packageManager.get().resolveContentProvider(name, flags, userId);
+    public static ProviderInfo resolveContentProvider(String name, long flags, int userId) throws RemoteException {
+        if (BuildCompat.isAtLeastT()) {
+            return packageManager.get().resolveContentProvider(name, flags, userId);
+        } else {
+            return packageManager.get().resolveContentProvider(name, (int) flags, userId);
+        }
     }
 
     public static int checkPermission(String permName, String pkgName, int userId) throws RemoteException {

@@ -82,6 +82,10 @@ public interface IPackageManager extends IInterface {
     ProviderInfo resolveContentProvider(String name, int flags, int userId)
             throws RemoteException;
 
+    @RequiresApi(33)
+    ProviderInfo resolveContentProvider(String name, long flags, int userId)
+            throws RemoteException;
+
     abstract class Stub extends Binder implements IPackageManager {
 
         public static IPackageManager asInterface(IBinder obj) {
