@@ -1,0 +1,40 @@
+plugins {
+    id('com.android.library')
+}
+
+android {
+    compileSdkVersion 32
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 32
+    }
+    buildFeatures {
+        buildConfig false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    annotationProcessor 'dev.rikka.tools.refine:annotation-processor:3.0.3'
+    implementation 'dev.rikka.tools.refine:runtime:3.0.3'
+
+    implementation 'androidx.annotation:annotation:1.3.0'
+    implementation 'androidx.core:core:1.7.0'
+    implementation 'dev.rikka.rikkax.parcelablelist:parcelablelist:1.0.0'
+
+    compileOnly project(':stub')
+}
+
+ext {
+    publishLibrary = true
+    POM_NAME = "HiddenApiCompat"
+    POM_DESCRIPTION = "HiddenApiCompat"
+}

@@ -1,0 +1,85 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    apply from: 'manifest.gradle'
+
+    ext {
+        version_name = '1.0.0'
+    }
+    repositories {
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+
+        // In case newly published library not yet synced with maven central
+        maven {
+            url("https://s01.oss.sonatype.org/content/repositories/releases/")
+            content {
+                includeGroup("dev.rikka.tools.refine")
+            }
+        }
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.4'
+
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+
+        // In case newly published library not yet synced with maven central
+        maven {
+            url("https://s01.oss.sonatype.org/content/repositories/releases/")
+            content {
+                includeGroupByRegex("dev.rikka.*")
+            }
+        }
+        mavenLocal()
+    }
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
+    }
+}
+
+subprojects {
+    afterEvaluate {
+        if (it.findProperty('publishLibrary') ?: false) {
+            plugins.apply('com.vanniktech.maven.publish')
+            version = version_name
+            println("${it.displayName}: ${group}:${it.name}:${version}")
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    GROUP = "dev.rikka.hidden"
+
+    POM_INCEPTION_YEAR = "2022"
+    POM_PACKAGING = "aar"
+
+    POM_URL = "https://github.com/RikkaApps/Shizuku-API"
+    POM_SCM_URL = "https://github.com/RikkaApps/Shizuku-API"
+    POM_SCM_CONNECTION = "scm:git@github.com:RikkaApps/Shizuku-API.git"
+    POM_SCM_DEV_CONNECTION = "scm:git@github.com:RikkaApps/Shizuku-API.git"
+
+    POM_LICENCE_NAME = "MIT License"
+    POM_LICENCE_URL = "https://github.com/RikkaApps/Shizuku-API/blob/master/LICENSE"
+    POM_LICENCE_DIST = "repo"
+
+    POM_DEVELOPER_ID = "rikka"
+    POM_DEVELOPER_NAME = "Rikka"
+    POM_DEVELOPER_URL = "https://github.com/RikkaW"
+}
