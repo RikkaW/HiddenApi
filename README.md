@@ -1,5 +1,7 @@
 # Hidden API
 
+![Maven Central](https://img.shields.io/maven-central/v/dev.rikka.hidden/stub)
+
 Unify all hidden APIs used by Rikka apps into a library.
 
 ## Usage
