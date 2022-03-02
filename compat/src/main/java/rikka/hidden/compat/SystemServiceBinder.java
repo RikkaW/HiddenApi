@@ -14,6 +14,16 @@ import java.io.FileDescriptor;
 
 public class SystemServiceBinder<T extends IInterface> implements IBinder, IBinder.DeathRecipient {
 
+    public interface OnGetBinderListener {
+        IBinder onGetBinder(IBinder binder);
+    }
+
+    private static OnGetBinderListener onGetBinderListener;
+
+    public static void setOnGetBinderListener(OnGetBinderListener onGetBinderListener) {
+        SystemServiceBinder.onGetBinderListener = onGetBinderListener;
+    }
+
     public interface ServiceCreator<T> {
         T create(IBinder binder);
     }
@@ -37,6 +47,10 @@ public class SystemServiceBinder<T extends IInterface> implements IBinder, IBind
         IBinder binder = ServiceManager.getService(name);
         if (binder == null) {
             return null;
+        }
+
+        if (onGetBinderListener != null) {
+            binder = onGetBinderListener.onGetBinder(binder);
         }
 
         try {
