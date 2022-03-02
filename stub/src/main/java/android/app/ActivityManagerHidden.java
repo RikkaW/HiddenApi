@@ -22,4 +22,8 @@ public class ActivityManagerHidden {
             throw new RuntimeException("STUB");
         }
     }
+
+    public static boolean isHighEndGfx() {
+        throw new RuntimeException("STUB");
+    }
 }

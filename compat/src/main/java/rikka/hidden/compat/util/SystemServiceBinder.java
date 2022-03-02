@@ -1,4 +1,4 @@
-package rikka.hidden.compat;
+package rikka.hidden.compat.util;
 
 import android.os.DeadObjectException;
 import android.os.IBinder;

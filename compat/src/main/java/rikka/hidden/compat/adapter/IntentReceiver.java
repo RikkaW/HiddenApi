@@ -1,4 +1,4 @@
-package rikka.hidden.compat;
+package rikka.hidden.compat.adapter;
 
 import android.content.IIntentReceiver;
 import android.content.Intent;
