@@ -26,7 +26,7 @@ import dev.rikka.tools.refine.Refine;
 import rikka.hidden.compat.adapter.IntentReceiver;
 
 @SuppressWarnings("unused")
-public class ActivityService {
+public class ActivityManagerApis {
 
     public static int checkPermission(@Nullable String permission, int pid, int uid) throws RemoteException {
         return activityManager.get().checkPermission(permission, pid, uid);
@@ -107,7 +107,7 @@ public class ActivityService {
     public static int getPackageProcessState(String pkg, int userId, String callingPackage) throws RemoteException {
         IActivityManager am = activityManager.get();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return am.getUidProcessState(PackageService.getPackageUid(pkg, 0, userId), callingPackage);
+            return am.getUidProcessState(PackageManagerApis.getPackageUid(pkg, 0, userId), callingPackage);
         } else {
             if (userId != 0) {
                 // getPackageProcessState missing user id, always treat them as PROCESS_STATE_TOP

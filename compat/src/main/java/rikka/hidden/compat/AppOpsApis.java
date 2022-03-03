@@ -14,7 +14,7 @@ import com.android.internal.app.IAppOpsNotedCallback;
 import java.util.List;
 
 @SuppressWarnings({"unused"})
-public class AppOpsService {
+public class AppOpsApis {
 
     public static List<AppOpsManagerHidden.PackageOps> getOpsForPackage(int uid, String packageName, int[] ops) throws RemoteException {
         return appOps.get().getOpsForPackage(uid, packageName, ops);

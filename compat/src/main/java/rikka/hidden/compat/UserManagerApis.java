@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public class UserService {
+public class UserManagerApis {
 
     @SuppressLint("NewApi")
     @NonNull

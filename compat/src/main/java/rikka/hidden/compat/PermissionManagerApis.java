@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class PermissionService {
+public class PermissionManagerApis {
 
     public static int checkPermission(@Nullable String permName, int uid) throws RemoteException {
         if (Build.VERSION.SDK_INT != 30) {

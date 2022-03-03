@@ -21,7 +21,7 @@ import java.util.List;
 
 @BuildCompat.PrereleaseSdkCheck
 @SuppressWarnings("unused")
-public class PackageService {
+public class PackageManagerApis {
 
     @SuppressLint("NewApi")
     @Nullable
