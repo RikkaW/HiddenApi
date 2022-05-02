@@ -1,9 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    apply from: 'manifest.gradle'
-
     ext {
-        version_name = '2.1.0'
+        version_name = '2.2.0'
     }
     repositories {
         mavenCentral()
@@ -29,6 +27,9 @@ allprojects {
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublish {
             sonatypeHost = "S01"
+        }
+        signing {
+            useGpgCmd()
         }
     }
 }
