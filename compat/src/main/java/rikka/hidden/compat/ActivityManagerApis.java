@@ -6,7 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManagerHidden;
 import android.app.ContentProviderHolder;
 import android.app.IActivityManager;
-import android.app.IActivityManager23;
+import android.app.IActivityManagerPre26;
 import android.app.IApplicationThread;
 import android.app.IProcessObserver;
 import android.app.IUidObserver;
@@ -60,7 +60,7 @@ public class ActivityManagerApis {
             contentProviderHolder = am.getContentProviderExternal(name, userId, token);
             provider = contentProviderHolder != null ? contentProviderHolder.provider : null;
         } else {
-            provider = Refine.<IActivityManager23>unsafeCast(am).getContentProviderExternal(name, userId, token).provider;
+            provider = Refine.<IActivityManagerPre26>unsafeCast(am).getContentProviderExternal(name, userId, token).provider;
         }
 
         return provider;
