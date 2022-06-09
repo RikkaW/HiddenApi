@@ -28,9 +28,9 @@ allprojects {
         mavenPublish {
             sonatypeHost = "S01"
         }
-        signing {
+        /*signing {
             useGpgCmd()
-        }
+        }*/
     }
 }
 
