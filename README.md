@@ -9,3 +9,14 @@ Unify all hidden APIs used by Rikka apps into a library.
 - Setup [HiddenApiRefinePlugin](https://github.com/RikkaApps/HiddenApiRefinePlugin)
 - `implementation 'dev.rikka.hidden:compat:<version>'`
 - `compileOnly 'dev.rikka.hidden:stub:<version>'`
+
+## Changelog
+
+### 3.0.0
+
+- (Breaking change) Update `UidObserverAdapter`
+- Add `ActivityManager#UID_OBSERVER_` values
+
+### 2.3.2
+
+- Add `checkSignatures` `checkUidSignatures`
