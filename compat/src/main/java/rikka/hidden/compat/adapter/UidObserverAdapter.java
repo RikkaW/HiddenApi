@@ -1,15 +1,24 @@
 package rikka.hidden.compat.adapter;
 
 import android.app.IUidObserver;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
+@RequiresApi(Build.VERSION_CODES.N)
 public class UidObserverAdapter extends IUidObserver.Stub {
+
+    public final void onUidGone(int uid) throws RemoteException {
+        onUidGone(uid, false);
+    }
 
     /**
      * Report that there are no longer any processes running for a uid.
+     *
+     * @param disabled Added from 8.0
      */
     public void onUidGone(int uid, boolean disabled) throws RemoteException {
 
@@ -22,12 +31,26 @@ public class UidObserverAdapter extends IUidObserver.Stub {
 
     }
 
+    public final void onUidIdle(int uid) throws RemoteException {
+        onUidIdle(uid, false);
+    }
+
     /**
      * Report that a uid is idle -- it has either been running in the background for
      * a sufficient period of time, or all of its processes have gone away.
+     *
+     * @param disabled Added from 8.0
      */
     public void onUidIdle(int uid, boolean disabled) throws RemoteException {
 
+    }
+
+    public final void onUidStateChanged(int uid, int procState) throws RemoteException {
+        onUidStateChanged(uid, procState, 0);
+    }
+
+    public final void onUidStateChanged(int uid, int procState, long procStateSeq) throws RemoteException {
+        onUidStateChanged(uid, procState, procStateSeq, 0);
     }
 
     /**
@@ -37,8 +60,11 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * @param procState    The updated process state for the uid.
      * @param procStateSeq The sequence no. associated with process state change of the uid,
      *                     see UidRecord.procStateSeq for details.
+     *                     Added from API 26 (8.0)
+     * @param capability   the updated process capability for the uid.
+     *                     Added from API 30 (11)
      */
-    public void onUidStateChanged(int uid, int procState, long procStateSeq) throws RemoteException {
+    public void onUidStateChanged(int uid, int procState, long procStateSeq, int capability) throws RemoteException {
 
     }
 
@@ -49,6 +75,8 @@ public class UidObserverAdapter extends IUidObserver.Stub {
      * If false, that a uid is no longer cached.  This will only be called after
      * onUidCached() has been reported true.  It will happen when either one of its actively
      * running processes is no longer cached, or it no longer has any actively running processes.
+     *
+     * @since API 27 (8.1)
      */
     public void onUidCachedChanged(int uid, boolean cached) throws RemoteException {
 
