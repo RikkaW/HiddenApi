@@ -112,6 +112,12 @@ public interface IPackageManager extends IInterface {
     boolean performDexOptMode(String packageName, boolean checkProfiles, String targetCompilerFilter, boolean force, boolean bootComplete, String splitName)
             throws RemoteException;
 
+    int checkSignatures(String pkg1, String pkg2)
+            throws RemoteException;
+
+    int checkUidSignatures(int uid1, int uid2)
+            throws RemoteException;
+
     abstract class Stub extends Binder implements IPackageManager {
 
         public static IPackageManager asInterface(IBinder obj) {

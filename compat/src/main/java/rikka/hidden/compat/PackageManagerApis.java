@@ -180,4 +180,12 @@ public class PackageManagerApis {
             return true;
         }
     }
+
+    public int checkSignatures(String pkg1, String pkg2) throws RemoteException {
+        return packageManager.get().checkSignatures(pkg1, pkg2);
+    }
+
+    public int checkUidSignatures(int uid1, int uid2) throws RemoteException {
+        return packageManager.get().checkUidSignatures(uid1, uid2);
+    }
 }
