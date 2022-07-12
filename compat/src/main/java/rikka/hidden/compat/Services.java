@@ -4,6 +4,7 @@ import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
 import android.content.pm.IPackageManager;
 import android.os.Build;
+import android.os.IDeviceIdleController;
 import android.os.IUserManager;
 import android.permission.IPermissionManager;
 
@@ -18,6 +19,7 @@ class Services {
     protected static final SystemServiceBinder<IUserManager> userManager;
     protected static final SystemServiceBinder<IPackageManager> packageManager;
     protected static final SystemServiceBinder<IPermissionManager> permissionManager;
+    protected static final SystemServiceBinder<IDeviceIdleController> deviceIdleController;
 
     static {
         appOps = new SystemServiceBinder<>(
@@ -42,6 +44,13 @@ class Services {
                     "permissionmgr", IPermissionManager.Stub::asInterface);
         } else {
             permissionManager = null;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            deviceIdleController = new SystemServiceBinder<>(
+                    "deviceidle", IDeviceIdleController.Stub::asInterface);
+        } else {
+            deviceIdleController = null;
         }
     }
 }
