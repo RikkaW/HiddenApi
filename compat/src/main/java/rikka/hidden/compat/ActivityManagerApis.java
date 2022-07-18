@@ -21,6 +21,9 @@ import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
+import java.util.List;
 
 import dev.rikka.tools.refine.Refine;
 import rikka.hidden.compat.adapter.IntentReceiver;
@@ -122,4 +125,33 @@ public class ActivityManagerApis {
         activityManager.get().forceStopPackage(packageName, userId);
     }
 
+    /**
+     * Method for the shell UID to start deletating its permission identity to an
+     * active instrumenation. The shell can delegate permissions only to one active
+     * instrumentation at a time. An active instrumentation is one running and
+     * started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static void startDelegateShellPermissionIdentity(int uid, String[] permissions) {
+        activityManager.get().startDelegateShellPermissionIdentity(uid, permissions);
+    }
+
+    /**
+     * Method for the shell UID to stop deletating its permission identity to an
+     * active instrumenation. An active instrumentation is one running and
+     * started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static void stopDelegateShellPermissionIdentity() {
+        activityManager.get().stopDelegateShellPermissionIdentity();
+    }
+
+    /**
+     * Method for the shell UID to get currently adopted permissions for an active instrumentation.
+     * An active instrumentation is one running and started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static List<String> getDelegatedShellPermissions() {
+        return activityManager.get().getDelegatedShellPermissions();
+    }
 }

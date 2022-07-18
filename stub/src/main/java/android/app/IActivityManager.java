@@ -4,12 +4,15 @@ import android.content.IIntentReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.RemoteException;
 
 import androidx.annotation.RequiresApi;
+
+import java.util.List;
 
 public interface IActivityManager extends IInterface {
 
@@ -74,6 +77,30 @@ public interface IActivityManager extends IInterface {
 
     int getPackageProcessState(String packageName, String callingPackage)
             throws RemoteException;
+
+    /**
+     * Method for the shell UID to start deletating its permission identity to an
+     * active instrumenation. The shell can delegate permissions only to one active
+     * instrumentation at a time. An active instrumentation is one running and
+     * started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    void startDelegateShellPermissionIdentity(int uid, String[] permissions);
+
+    /**
+     * Method for the shell UID to stop deletating its permission identity to an
+     * active instrumenation. An active instrumentation is one running and
+     * started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    void stopDelegateShellPermissionIdentity();
+
+    /**
+     * Method for the shell UID to get currently adopted permissions for an active instrumentation.
+     * An active instrumentation is one running and started from the shell.
+     */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    List<String> getDelegatedShellPermissions();
 
     @RequiresApi(26)
     abstract class Stub extends Binder implements IActivityManager {

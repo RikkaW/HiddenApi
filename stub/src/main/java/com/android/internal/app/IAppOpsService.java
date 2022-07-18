@@ -59,6 +59,12 @@ public interface IAppOpsService extends IInterface {
                           long beginTimeMillis, long endTimeMillis, int flags, RemoteCallback callback)
             throws RemoteException;
 
+    @RequiresApi(Build.VERSION_CODES.S)
+    void getHistoricalOps(int uid, String packageName, String attributionTag, List<String> ops,
+                          int historyFlags, int filter, long beginTimeMillis, long endTimeMillis, int flags,
+                          RemoteCallback callback)
+            throws RemoteException;
+
     @RequiresApi(Build.VERSION_CODES.Q)
     void getHistoricalOpsFromDiskRaw(int uid, String packageName, List<String> ops, long beginTimeMillis,
                                      long endTimeMillis, int flags, RemoteCallback callback)
@@ -69,9 +75,18 @@ public interface IAppOpsService extends IInterface {
                                      long beginTimeMillis, long endTimeMillis, int flags, RemoteCallback callback)
             throws RemoteException;
 
+    @RequiresApi(Build.VERSION_CODES.S)
+    void getHistoricalOpsFromDiskRaw(int uid, String packageName, String attributionTag,
+                                     List<String> ops, int historyFlags, int filter, long beginTimeMillis,
+                                     long endTimeMillis, int flags, RemoteCallback callback)
+            throws RemoteException;
+
     @RequiresApi(Build.VERSION_CODES.Q)
     void setHistoryParameters(int mode, long baseSnapshotInterval, int compressionStep)
             throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    void resetHistoryParameters();
 
     abstract class Stub implements IAppOpsService {
 
