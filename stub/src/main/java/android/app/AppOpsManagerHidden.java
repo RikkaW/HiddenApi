@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.ArraySet;
+import android.util.LongSparseArray;
 import android.util.LongSparseLongArray;
 
 import androidx.annotation.IntRange;
@@ -422,8 +423,9 @@ public class AppOpsManagerHidden {
          * @return The number of attribution with historical ops.
          * @see #getAttributedOpsAt(int)
          */
-        public @IntRange(from = 0)
-        int getAttributedOpsCount() {
+        @RequiresApi(Build.VERSION_CODES.R)
+        @IntRange(from = 0)
+        public int getAttributedOpsCount() {
             throw new RuntimeException("STUB");
         }
 
@@ -434,6 +436,7 @@ public class AppOpsManagerHidden {
          * @return The historical attribution ops at the given index.
          * @see #getAttributedOpsCount()
          */
+        @RequiresApi(Build.VERSION_CODES.R)
         @NonNull
         public AttributedHistoricalOps getAttributedOpsAt(@IntRange(from = 0) int index) {
             throw new RuntimeException("STUB");
@@ -445,6 +448,7 @@ public class AppOpsManagerHidden {
          * @param attributionTag The attribution tag.
          * @return The historical ops for the attribution.
          */
+        @RequiresApi(Build.VERSION_CODES.R)
         @Nullable
         public AttributedHistoricalOps getAttributedOps(@Nullable String attributionTag) {
             throw new RuntimeException("STUB");
@@ -823,18 +827,6 @@ public class AppOpsManagerHidden {
         }
 
         /**
-         * Return the last access event.
-         *
-         * @param flags The op flags
-         * @return the last access event of {@code null} if there was no access
-         */
-        @Nullable
-        private NoteOpEvent getLastAccessEvent(int fromUidState,
-                                               int toUidState, int flags) {
-            throw new RuntimeException("STUB");
-        }
-
-        /**
          * Return the last access time.
          *
          * @param fromUidState The lowest UID state for which to query
@@ -894,22 +886,6 @@ public class AppOpsManagerHidden {
          * @see OpEntry#getLastRejectBackgroundTime(int)
          */
         public long getLastRejectBackgroundTime(int flags) {
-            throw new RuntimeException("STUB");
-        }
-
-        /**
-         * Return the last background rejection event.
-         *
-         * @param flags The op flags
-         * @return the last rejection event of {@code null} if there was no rejection
-         * @see #getLastRejectTime(int)
-         * @see #getLastRejectForegroundTime(int)
-         * @see #getLastRejectBackgroundTime(int)
-         * @see OpEntry#getLastRejectTime(int, int, int)
-         */
-        @Nullable
-        private NoteOpEvent getLastRejectEvent(int fromUidState,
-                                               int toUidState, int flags) {
             throw new RuntimeException("STUB");
         }
 
@@ -1053,9 +1029,35 @@ public class AppOpsManagerHidden {
          * @see #getLastBackgroundProxyInfo(int)
          * @see OpEntry#getLastProxyInfo(int, int, int)
          */
-        public @Nullable
-        OpEventProxyInfo getLastProxyInfo(int fromUidState,
+        @Nullable
+        public OpEventProxyInfo getLastProxyInfo(int fromUidState,
                                           int toUidState, int flags) {
+            throw new RuntimeException("STUB");
+        }
+
+        /**
+         * Creates a new OpAttributionEntry.
+         *
+         * @param op
+         *   The code of the op
+         * @param running
+         *   Whether the op is running
+         * @param accessEvents
+         *   The access events
+         * @param rejectEvents
+         *   The rejection events
+         */
+        public AttributedOpEntry(int op,
+                boolean running,
+                @Nullable LongSparseArray<NoteOpEvent> accessEvents,
+                @Nullable LongSparseArray<NoteOpEvent> rejectEvents) {
+            throw new RuntimeException("STUB");
+        }
+
+        /**
+         * Whether the op is running
+         */
+        public boolean isRunning() {
             throw new RuntimeException("STUB");
         }
     }

@@ -86,7 +86,8 @@ public interface IAppOpsService extends IInterface {
             throws RemoteException;
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    void resetHistoryParameters();
+    void resetHistoryParameters()
+            throws RemoteException;
 
     abstract class Stub implements IAppOpsService {
 

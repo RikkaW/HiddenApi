@@ -524,4 +524,14 @@ public class AppOpsApis {
             appOps.get().getHistoricalOpsFromDiskRaw(request.mUid, request.mPackageName, request.mOpNames, request.mBeginTimeMillis, request.mEndTimeMillis, request.mFlags, remoteCallback);
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static void setHistoryParameters(int mode, long baseSnapshotInterval, int compressionStep) throws RemoteException {
+        appOps.get().setHistoryParameters(mode, baseSnapshotInterval, compressionStep);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    public static void resetHistoryParameters() throws RemoteException {
+        appOps.get().resetHistoryParameters();
+    }
 }
