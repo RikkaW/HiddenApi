@@ -4,6 +4,7 @@ import static rikka.hidden.compat.Services.activityManager;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManagerHidden;
+import android.app.ActivityTaskManager;
 import android.app.ContentProviderHolder;
 import android.app.IActivityManager;
 import android.app.IActivityManagerPre26;
@@ -132,7 +133,7 @@ public class ActivityManagerApis {
      * started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    public static void startDelegateShellPermissionIdentity(int uid, String[] permissions) {
+    public static void startDelegateShellPermissionIdentity(int uid, String[] permissions) throws RemoteException {
         activityManager.get().startDelegateShellPermissionIdentity(uid, permissions);
     }
 
@@ -142,7 +143,7 @@ public class ActivityManagerApis {
      * started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    public static void stopDelegateShellPermissionIdentity() {
+    public static void stopDelegateShellPermissionIdentity() throws RemoteException {
         activityManager.get().stopDelegateShellPermissionIdentity();
     }
 
@@ -151,7 +152,12 @@ public class ActivityManagerApis {
      * An active instrumentation is one running and started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    public static List<String> getDelegatedShellPermissions() {
+    public static List<String> getDelegatedShellPermissions() throws RemoteException {
         return activityManager.get().getDelegatedShellPermissions();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    public static ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo() throws RemoteException {
+        return activityManager.get().getFocusedRootTaskInfo();
     }
 }

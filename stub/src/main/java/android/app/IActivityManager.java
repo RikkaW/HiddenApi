@@ -85,7 +85,8 @@ public interface IActivityManager extends IInterface {
      * started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    void startDelegateShellPermissionIdentity(int uid, String[] permissions);
+    void startDelegateShellPermissionIdentity(int uid, String[] permissions)
+            throws RemoteException;
 
     /**
      * Method for the shell UID to stop deletating its permission identity to an
@@ -93,14 +94,20 @@ public interface IActivityManager extends IInterface {
      * started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    void stopDelegateShellPermissionIdentity();
+    void stopDelegateShellPermissionIdentity()
+            throws RemoteException;
 
     /**
      * Method for the shell UID to get currently adopted permissions for an active instrumentation.
      * An active instrumentation is one running and started from the shell.
      */
     @RequiresApi(Build.VERSION_CODES.Q)
-    List<String> getDelegatedShellPermissions();
+    List<String> getDelegatedShellPermissions()
+            throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo()
+            throws RemoteException;
 
     @RequiresApi(26)
     abstract class Stub extends Binder implements IActivityManager {
