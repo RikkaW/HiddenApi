@@ -3,6 +3,7 @@ package rikka.hidden.compat;
 import static rikka.hidden.compat.Services.activityManager;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.ActivityManagerHidden;
 import android.app.ActivityTaskManager;
 import android.app.ContentProviderHolder;
@@ -10,6 +11,7 @@ import android.app.IActivityManager;
 import android.app.IActivityManagerPre26;
 import android.app.IApplicationThread;
 import android.app.IProcessObserver;
+import android.app.ITaskStackListener;
 import android.app.IUidObserver;
 import android.app.ProfilerInfo;
 import android.content.IContentProvider;
@@ -159,5 +161,17 @@ public class ActivityManagerApis {
     @RequiresApi(Build.VERSION_CODES.S)
     public static ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo() throws RemoteException {
         return activityManager.get().getFocusedRootTaskInfo();
+    }
+
+    public static void registerTaskStackListener(@NonNull ITaskStackListener listener) throws RemoteException {
+        activityManager.get().registerTaskStackListener(listener);
+    }
+
+    public static void unregisterTaskStackListener(@NonNull ITaskStackListener listener) throws RemoteException {
+        activityManager.get().unregisterTaskStackListener(listener);
+    }
+
+    public static List<ActivityManager.RunningTaskInfo> getTasks(int maxNum) throws RemoteException {
+        return activityManager.get().getTasks(maxNum);
     }
 }

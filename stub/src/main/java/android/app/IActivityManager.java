@@ -105,8 +105,17 @@ public interface IActivityManager extends IInterface {
     List<String> getDelegatedShellPermissions()
             throws RemoteException;
 
+    void registerTaskStackListener(ITaskStackListener listener)
+            throws RemoteException;
+
+    void unregisterTaskStackListener(ITaskStackListener listener)
+            throws RemoteException;
+
     @RequiresApi(Build.VERSION_CODES.S)
     ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo()
+            throws RemoteException;
+
+    List<ActivityManager.RunningTaskInfo> getTasks(int maxNum)
             throws RemoteException;
 
     @RequiresApi(26)
