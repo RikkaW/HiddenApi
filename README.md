@@ -12,6 +12,14 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 3.2.0
+
+- Add "historical ops" related APIs
+
+### 3.1.0
+
+- Add `android.provider.DeviceConfig`
+
 ### 3.0.0
 
 - (Breaking change) Update `UidObserverAdapter`
