@@ -3,6 +3,7 @@ package rikka.hidden.compat;
 import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
 import android.content.pm.IPackageManager;
+import android.hardware.display.IDisplayManager;
 import android.os.Build;
 import android.os.IDeviceIdleController;
 import android.os.IUserManager;
@@ -20,6 +21,7 @@ class Services {
     protected static final SystemServiceBinder<IPackageManager> packageManager;
     protected static final SystemServiceBinder<IPermissionManager> permissionManager;
     protected static final SystemServiceBinder<IDeviceIdleController> deviceIdleController;
+    protected static final SystemServiceBinder<IDisplayManager> displayManager;
 
     static {
         appOps = new SystemServiceBinder<>(
@@ -52,5 +54,8 @@ class Services {
         } else {
             deviceIdleController = null;
         }
+
+        displayManager = new SystemServiceBinder<>(
+                "display", IDisplayManager.Stub::asInterface);
     }
 }
