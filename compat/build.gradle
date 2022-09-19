@@ -1,12 +1,14 @@
 plugins {
     id('com.android.library')
+    id('maven-publish')
+    id('signing')
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
     }
     buildFeatures {
         buildConfig false
@@ -34,7 +36,6 @@ dependencies {
 }
 
 ext {
-    publishLibrary = true
     POM_NAME = "HiddenApiCompat"
     POM_DESCRIPTION = "HiddenApiCompat"
 }

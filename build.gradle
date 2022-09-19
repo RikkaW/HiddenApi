@@ -9,9 +9,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.3'
-
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.21.0'
+        classpath 'com.android.tools.build:gradle:7.2.2'
     }
 }
 
@@ -23,24 +21,92 @@ allprojects {
     }
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
-    }
-    plugins.withId("com.vanniktech.maven.publish") {
-        mavenPublishing {
-            publishToMavenCentral("S01")
-            signAllPublications()
-        }
-        /*signing {
-            useGpgCmd()
-        }*/
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
     }
 }
 
 subprojects {
+    afterEvaluate { project ->
+        if (!plugins.hasPlugin('maven-publish')) {
+            return
+        }
+
+        if (project.parent == rootProject) {
+            group = "${groupIdBase}"
+        } else {
+            group = "${groupIdBase}.${project.parent.name}"
+        }
+        version = version_name
+        println("${project.displayName}: ${group}:${project.name}:${version}")
+
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    group project.group
+                    artifactId project.name
+                    version version_name
+                    afterEvaluate {
+                        from components.release
+                    }
+                    pom {
+                        name = POM_NAME
+                        description = POM_DESCRIPTION
+                        url = POM_URL
+                        licenses {
+                            license {
+                                name = POM_LICENCE_NAME
+                                url = POM_LICENCE_URL
+                            }
+                        }
+                        developers {
+                            developer {
+                                name = POM_DEVELOPER_NAME
+                                url = POM_DEVELOPER_URL
+                            }
+                        }
+                        scm {
+                            connection = POM_SCM_CONNECTION
+                            url = POM_SCM_URL
+                        }
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    name 'ossrh'
+                    url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                    credentials(PasswordCredentials)
+                }
+            }
+        }
+    }
+
     afterEvaluate {
-        if (it.findProperty('publishLibrary') ?: false) {
-            plugins.apply('com.vanniktech.maven.publish')
-            version = version_name
-            println("${it.displayName}: ${group}:${it.name}:${version}")
+        if (!plugins.hasPlugin('signing')) {
+            return
+        }
+
+        android {
+            publishing {
+                singleVariant("release") {
+                    withSourcesJar()
+                    withJavadocJar()
+                }
+            }
+        }
+
+        signing {
+            def signingKey = findProperty("signingKey")
+            def signingPassword = findProperty("signingPassword")
+            def secretKeyRingFile = findProperty("signing.secretKeyRingFile")
+
+            if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
+                sign publishing.publications
+            } else if (signingKey != null) {
+                useInMemoryPgpKeys(signingKey, signingPassword)
+                sign publishing.publications
+            }
         }
     }
 }
@@ -50,7 +116,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    GROUP = "dev.rikka.hidden"
+    groupIdBase = "dev.rikka.hidden"
 
     POM_INCEPTION_YEAR = "2022"
     POM_PACKAGING = "aar"
