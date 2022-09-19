@@ -12,6 +12,10 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 3.4.0
+
+- Add some DisplayManager APIs
+
 ### 3.2.0
 
 - Add "historical ops" related APIs
