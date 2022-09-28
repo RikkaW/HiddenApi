@@ -172,6 +172,10 @@ public class ActivityManagerApis {
     }
 
     public static List<ActivityManager.RunningTaskInfo> getTasks(int maxNum) throws RemoteException {
-        return activityManager.get().getTasks(maxNum);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return activityManager.get().getTasks(maxNum);
+        } else {
+            return activityManager.get().getTasks(maxNum, 0);
+        }
     }
 }

@@ -115,6 +115,10 @@ public interface IActivityManager extends IInterface {
     ActivityTaskManager.RootTaskInfo getFocusedRootTaskInfo()
             throws RemoteException;
 
+    List<ActivityManager.RunningTaskInfo> getTasks(int maxNum, int flags)
+            throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.P)
     List<ActivityManager.RunningTaskInfo> getTasks(int maxNum)
             throws RemoteException;
 
