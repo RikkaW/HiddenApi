@@ -12,40 +12,6 @@ import androidx.annotation.RequiresApi;
 public class DisplayManagerGlobal {
 
     /**
-     * Event type for when a new display is added.
-     *
-     * @see #registerDisplayListener(DisplayListener, Handler, long)
-     */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static long EVENT_FLAG_DISPLAY_ADDED;
-
-    /**
-     * Event type for when a display is removed.
-     *
-     * @see #registerDisplayListener(DisplayListener, Handler, long)
-     */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static long EVENT_FLAG_DISPLAY_REMOVED;
-
-    /**
-     * Event type for when a display is changed.
-     *
-     * @see #registerDisplayListener(DisplayListener, Handler, long)
-     */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static long EVENT_FLAG_DISPLAY_CHANGED;
-
-    /**
-     * Event flag to register for a display's brightness changes. This notification is sent
-     * through the {@link DisplayListener#onDisplayChanged} callback method. New brightness
-     * values can be retrieved via {@link android.view.Display#getBrightnessInfo()}.
-     *
-     * @see #registerDisplayListener(DisplayListener, Handler, long)
-     */
-    @RequiresApi(api = Build.VERSION_CODES.S)
-    public static long EVENT_FLAG_DISPLAY_BRIGHTNESS;
-
-    /**
      * Gets an instance of the display manager global singleton.
      *
      * @return The display manager instance, may be null early in system startup
