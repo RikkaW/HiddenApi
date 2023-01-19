@@ -4,11 +4,14 @@ import static rikka.hidden.compat.Services.packageManager;
 import static rikka.hidden.compat.Services.permissionManager;
 
 import android.content.pm.IPackageManager;
+import android.content.pm.PermissionGroupInfo;
+import android.content.pm.PermissionInfo;
 import android.os.Build;
 import android.os.RemoteException;
 import android.permission.IPermissionManager;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
@@ -82,6 +85,24 @@ public class PermissionManagerApis {
             packageManager.get().updatePermissionFlags(permissionName, packageName, flagMask, flagValues, checkAdjustPolicyFlagPermission, userId);
         } else {
             packageManager.get().updatePermissionFlags(permissionName, packageName, flagMask, flagValues, userId);
+        }
+    }
+
+    public static PermissionGroupInfo getPermissionGroupInfo(String groupName, int flags) throws RemoteException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return permissionManager.get().getPermissionGroupInfo(groupName, flags);
+        } else {
+            return  packageManager.get().getPermissionGroupInfo(groupName, flags);
+        }
+    }
+
+    public static PermissionInfo getPermissionInfo(String permissionName, String packageName, int flags) throws RemoteException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return permissionManager.get().getPermissionInfo(permissionName, packageName, flags);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return packageManager.get().getPermissionInfo(permissionName, packageName, flags);
+        } else {
+            return packageManager.get().getPermissionInfo(permissionName, flags);
         }
     }
 }

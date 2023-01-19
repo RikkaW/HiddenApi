@@ -1,5 +1,7 @@
 package android.permission;
 
+import android.content.pm.PermissionGroupInfo;
+import android.content.pm.PermissionInfo;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.IInterface;
@@ -29,6 +31,12 @@ public interface IPermissionManager extends IInterface {
             throws RemoteException;
 
     int checkUidPermission(String permName, int uid)
+            throws RemoteException;
+
+    PermissionGroupInfo getPermissionGroupInfo(String groupName, int flags)
+            throws RemoteException;
+
+    PermissionInfo getPermissionInfo(String permissionName, String packageName, int flags)
             throws RemoteException;
 
     @RequiresApi(30)

@@ -2,6 +2,7 @@ package android.content.pm;
 
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.RemoteException;
@@ -116,6 +117,16 @@ public interface IPackageManager extends IInterface {
             throws RemoteException;
 
     int checkUidSignatures(int uid1, int uid2)
+            throws RemoteException;
+
+    PermissionGroupInfo getPermissionGroupInfo(String groupName, int flags)
+            throws RemoteException;
+
+    PermissionInfo getPermissionInfo(String permissionName, int flags)
+            throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    PermissionInfo getPermissionInfo(String permissionName, String packageName, int flags)
             throws RemoteException;
 
     abstract class Stub extends Binder implements IPackageManager {
