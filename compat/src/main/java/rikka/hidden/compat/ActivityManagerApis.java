@@ -14,9 +14,11 @@ import android.app.IProcessObserver;
 import android.app.ITaskStackListener;
 import android.app.IUidObserver;
 import android.app.ProfilerInfo;
+import android.content.BroadcastReceiver;
 import android.content.IContentProvider;
 import android.content.IIntentReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -177,5 +179,41 @@ public class ActivityManagerApis {
         } else {
             return activityManager.get().getTasks(maxNum, 0);
         }
+    }
+
+    public static Intent registerReceiver(
+            String callerPackage,
+            String callingFeatureId, String receiverId, BroadcastReceiver receiver,
+            IntentFilter filter, String requiredPermission, int userId, int flags) throws RemoteException {
+
+        IIntentReceiver intentReceiver;
+        if (receiver != null) {
+            intentReceiver = new IIntentReceiver.Stub() {
+                @Override
+                public void performReceive(Intent intent, int resultCode, String data, Bundle extras, boolean ordered, boolean sticky, int sendingUser) throws RemoteException {
+                    receiver.onReceive(null, intent);
+                }
+            };
+        } else {
+            intentReceiver = null;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return activityManager.get().registerReceiverWithFeature(
+                    null, callerPackage, callingFeatureId, receiverId, intentReceiver, filter,
+                    requiredPermission, userId, flags);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return activityManager.get().registerReceiver(
+                    null, callerPackage, intentReceiver, filter,
+                    requiredPermission, userId, flags);
+        } else {
+            return activityManager.get().registerReceiver(
+                    null, callerPackage, intentReceiver, filter,
+                    requiredPermission, userId);
+        }
+    }
+
+    public static void unregisterReceiver(IIntentReceiver receiver) throws RemoteException {
+        activityManager.get().unregisterReceiver(receiver);
     }
 }

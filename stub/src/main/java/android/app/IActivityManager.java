@@ -56,10 +56,20 @@ public interface IActivityManager extends IInterface {
                             String requiredPermission, int userId)
             throws RemoteException;
 
-    @RequiresApi(26)
+    @RequiresApi(Build.VERSION_CODES.O)
     Intent registerReceiver(IApplicationThread caller, String callerPackage,
                             IIntentReceiver receiver, IntentFilter filter,
                             String requiredPermission, int userId, int flags)
+            throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    Intent registerReceiverWithFeature(
+            IApplicationThread caller, String callerPackage,
+            String callingFeatureId, String receiverId, IIntentReceiver receiver,
+            IntentFilter filter, String requiredPermission, int userId, int flags)
+            throws RemoteException;
+
+    void unregisterReceiver(IIntentReceiver receiver)
             throws RemoteException;
 
     boolean isUserRunning(int userId, int flags)
