@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        version_name = '3.4.4'
+        version_name = '3.4.5'
     }
     repositories {
         mavenCentral()
@@ -101,12 +101,13 @@ subprojects {
             def signingPassword = findProperty("signingPassword")
             def secretKeyRingFile = findProperty("signing.secretKeyRingFile")
 
-            if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
+            /*if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
                 sign publishing.publications
             } else if (signingKey != null) {
                 useInMemoryPgpKeys(signingKey, signingPassword)
                 sign publishing.publications
-            }
+            }*/
+            useGpgCmd()
         }
     }
 }
