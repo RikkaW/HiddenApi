@@ -5,6 +5,7 @@ import android.app.IActivityManager;
 import android.content.pm.IPackageManager;
 import android.hardware.display.IDisplayManager;
 import android.os.Build;
+import android.os.IBatteryPropertiesRegistrar;
 import android.os.IDeviceIdleController;
 import android.os.IUserManager;
 import android.permission.IPermissionManager;
@@ -22,6 +23,7 @@ class Services {
     protected static final SystemServiceBinder<IPermissionManager> permissionManager;
     protected static final SystemServiceBinder<IDeviceIdleController> deviceIdleController;
     protected static final SystemServiceBinder<IDisplayManager> displayManager;
+    protected static final SystemServiceBinder<IBatteryPropertiesRegistrar> batteryPropertiesRegistrar;
 
     static {
         appOps = new SystemServiceBinder<>(
@@ -57,5 +59,8 @@ class Services {
 
         displayManager = new SystemServiceBinder<>(
                 "display", IDisplayManager.Stub::asInterface);
+
+        batteryPropertiesRegistrar = new SystemServiceBinder<>(
+                "batteryproperties", IBatteryPropertiesRegistrar.Stub::asInterface);
     }
 }
