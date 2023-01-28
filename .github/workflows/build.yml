@@ -20,7 +20,9 @@ jobs:
         distribution: 'temurin'
         cache: gradle
     - name: Build with Gradle
-      run: ./gradlew publishToMavenLocal
+      run: |
+        echo 'org.gradle.jvmargs=-Xmx2048m -XX:+UseParallelGC' >> gradle.properties
+        ./gradlew publishToMavenLocal
     - name: Upload build artifact
       uses: actions/upload-artifact@v3
       with:
