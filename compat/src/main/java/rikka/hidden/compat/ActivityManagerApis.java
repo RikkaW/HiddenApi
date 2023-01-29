@@ -198,9 +198,13 @@ public class ActivityManagerApis {
             intentReceiver = null;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             return activityManager.get().registerReceiverWithFeature(
                     null, callerPackage, callingFeatureId, receiverId, intentReceiver, filter,
+                    requiredPermission, userId, flags);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return activityManager.get().registerReceiverWithFeature(
+                    null, callerPackage, callingFeatureId, intentReceiver, filter,
                     requiredPermission, userId, flags);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return activityManager.get().registerReceiver(
