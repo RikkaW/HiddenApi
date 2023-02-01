@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        version_name = '3.4.5'
+        version_name = '3.4.6'
     }
     repositories {
         mavenCentral()
