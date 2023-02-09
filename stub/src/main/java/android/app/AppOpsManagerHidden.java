@@ -79,12 +79,67 @@ public class AppOpsManagerHidden {
         throw new RuntimeException("STUB");
     }
 
+    public static int strDebugOpToOp(String op) {
+        throw new RuntimeException("STUB");
+    }
+
+    public static int opToSwitch(int op) {
+        throw new RuntimeException("STUB");
+    }
+
     public static String opToName(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = 34)
+    public static String opToPublicName(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    public static String opToPermission(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public static String opToPermission(@NonNull String op) {
+        throw new RuntimeException("STUB");
+    }
+
+    public static String opToRestriction(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    public static int opToDefaultMode(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public static int opToDefaultMode(@NonNull String appOp) {
         throw new RuntimeException("STUB");
     }
 
     public static int permissionToOpCode(String permission) {
         throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = 34)
+    public static RestrictionBypass opAllowSystemBypassRestriction(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public static boolean opRestrictsRead(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    public static boolean opAllowsReset(int op) {
+        throw new RuntimeException("STUB");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public static int getNumOps() {
+        throw new RuntimeException("STUB");
+
     }
 
     public static final class PackageOps {

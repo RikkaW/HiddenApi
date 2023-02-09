@@ -3,7 +3,7 @@ package android.app;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = 34)
-public class AppOpInfo {
+class AppOpInfo {
 
     public AppOpsManagerHidden.RestrictionBypass allowSystemRestrictionBypass;
     public int code;
