@@ -3,22 +3,13 @@ buildscript {
     ext {
         version_name = '3.4.6'
     }
-    repositories {
-        mavenCentral()
-        google()
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.0'
-    }
+}
+
+plugins {
+    id 'com.android.library' version '7.4.1' apply false
 }
 
 allprojects {
-    repositories {
-        mavenCentral()
-        google()
-        mavenLocal()
-    }
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
         options.addStringOption('encoding', 'UTF-8')
