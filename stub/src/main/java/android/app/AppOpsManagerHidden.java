@@ -225,7 +225,9 @@ public class AppOpsManagerHidden {
     @RequiresApi(Build.VERSION_CODES.Q)
     public interface HistoricalOpsVisitor {
         void visitHistoricalOps(@NonNull HistoricalOps ops);
+
         void visitHistoricalUidOps(@NonNull HistoricalUidOps ops);
+
         void visitHistoricalPackageOps(@NonNull HistoricalPackageOps ops);
 
         @RequiresApi(Build.VERSION_CODES.R)
@@ -1031,26 +1033,22 @@ public class AppOpsManagerHidden {
          */
         @Nullable
         public OpEventProxyInfo getLastProxyInfo(int fromUidState,
-                                          int toUidState, int flags) {
+                                                 int toUidState, int flags) {
             throw new RuntimeException("STUB");
         }
 
         /**
          * Creates a new OpAttributionEntry.
          *
-         * @param op
-         *   The code of the op
-         * @param running
-         *   Whether the op is running
-         * @param accessEvents
-         *   The access events
-         * @param rejectEvents
-         *   The rejection events
+         * @param op           The code of the op
+         * @param running      Whether the op is running
+         * @param accessEvents The access events
+         * @param rejectEvents The rejection events
          */
         public AttributedOpEntry(int op,
-                boolean running,
-                @Nullable LongSparseArray<NoteOpEvent> accessEvents,
-                @Nullable LongSparseArray<NoteOpEvent> rejectEvents) {
+                                 boolean running,
+                                 @Nullable LongSparseArray<NoteOpEvent> accessEvents,
+                                 @Nullable LongSparseArray<NoteOpEvent> rejectEvents) {
             throw new RuntimeException("STUB");
         }
 
@@ -1131,4 +1129,17 @@ public class AppOpsManagerHidden {
             throw new RuntimeException("STUB");
         }
     }
+
+    @RequiresApi(api = 34)
+    public static class RestrictionBypass {
+        public static RestrictionBypass UNRESTRICTED;
+        public boolean isPrivileged;
+        public boolean isRecordAudioRestrictionExcept;
+        public boolean isSystemUid;
+
+        public RestrictionBypass(boolean isSystemUid, boolean isPrivileged, boolean isRecordAudioRestrictionExcept) {
+            throw new RuntimeException("STUB");
+        }
+    }
+
 }
