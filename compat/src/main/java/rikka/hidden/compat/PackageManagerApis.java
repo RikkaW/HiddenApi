@@ -13,13 +13,13 @@ import android.os.RemoteException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.os.BuildCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@BuildCompat.PrereleaseSdkCheck
+import rikka.buildcompat.BuildCompat;
+
 @SuppressWarnings("unused")
 public class PackageManagerApis {
 
