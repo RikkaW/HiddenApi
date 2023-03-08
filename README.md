@@ -12,6 +12,14 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 4.0.0
+
+- Update `AppOpsManagerHidden`
+- Add `WindowManagerHidden`
+- Add `IBatteryPropertiesRegistrar` APIs
+- Fix `registerReceiverWithFeature` on Android R (#5)
+- Update HiddenApiRefine plugin
+
 ### 3.4.0
 
 - Add some DisplayManager APIs
