@@ -2,6 +2,7 @@ package rikka.hidden.compat;
 
 import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
+import android.content.pm.ILauncherApps;
 import android.content.pm.IPackageManager;
 import android.hardware.display.IDisplayManager;
 import android.os.Build;
@@ -24,6 +25,7 @@ class Services {
     protected static final SystemServiceBinder<IDeviceIdleController> deviceIdleController;
     protected static final SystemServiceBinder<IDisplayManager> displayManager;
     protected static final SystemServiceBinder<IBatteryPropertiesRegistrar> batteryPropertiesRegistrar;
+    protected static final SystemServiceBinder<ILauncherApps> launcherApps;
 
     static {
         appOps = new SystemServiceBinder<>(
@@ -62,5 +64,8 @@ class Services {
 
         batteryPropertiesRegistrar = new SystemServiceBinder<>(
                 "batteryproperties", IBatteryPropertiesRegistrar.Stub::asInterface);
+
+        launcherApps = new SystemServiceBinder<>(
+                "launcherapps", ILauncherApps.Stub::asInterface);
     }
 }

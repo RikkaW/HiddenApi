@@ -23,6 +23,11 @@ public interface ILauncherApps extends IInterface {
         throw new RuntimeException();
     }
 
+    default void removeOnAppsChangedListener(IOnAppsChangedListener listener)
+            throws RemoteException {
+        throw new RuntimeException();
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     default boolean startShortcut(String callingPackage, String packageName, String id,
                           Rect sourceBounds, Bundle startActivityOptions, int userId)
