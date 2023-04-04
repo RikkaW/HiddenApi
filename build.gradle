@@ -99,6 +99,8 @@ subprojects {
                 sign publishing.publications
             }*/
             useGpgCmd()
+            sign configurations.archives
+            sign publishing.publications.mavenJava
         }
     }
 }
