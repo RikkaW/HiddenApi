@@ -12,6 +12,14 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 4.2.0
+
+- Build `compat` with HiddenApiRefine plugin, this will fix `ActivityManagerApis#getContentProviderExternal` crash on pre-API 26
+
+### 4.1.0
+
+- Use `dev.rikka.rikkax.buildcompat`
+
 ### 4.0.0
 
 - Update `AppOpsManagerHidden`
