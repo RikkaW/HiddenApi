@@ -2,6 +2,7 @@ plugins {
     id('com.android.library')
     id('maven-publish')
     id('signing')
+    id('dev.rikka.tools.refine')
 }
 
 android {

@@ -16,10 +16,11 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         libs {
-            version('refine', '4.2.1')
+            version('refine', '4.3.0')
             library('refine-runtime', 'dev.rikka.tools.refine', 'runtime').versionRef('refine')
             library('refine-annotation', 'dev.rikka.tools.refine', 'annotation').versionRef('refine')
             library('refine-annotation-processor', 'dev.rikka.tools.refine', 'annotation-processor').versionRef('refine')
+            plugin('refine', 'dev.rikka.tools.refine').versionRef('refine')
         }
     }
 }
