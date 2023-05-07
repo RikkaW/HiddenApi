@@ -12,6 +12,10 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 4.3.0
+
+- Add some `IWindowManager` APIs
+
 ### 4.2.0
 
 - Build `compat` with HiddenApiRefine plugin, this will fix `ActivityManagerApis#getContentProviderExternal` crash on pre-API 26

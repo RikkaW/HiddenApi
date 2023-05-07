@@ -10,6 +10,7 @@ import android.os.IBatteryPropertiesRegistrar;
 import android.os.IDeviceIdleController;
 import android.os.IUserManager;
 import android.permission.IPermissionManager;
+import android.view.IWindowManager;
 
 import com.android.internal.app.IAppOpsService;
 
@@ -26,6 +27,7 @@ class Services {
     protected static final SystemServiceBinder<IDisplayManager> displayManager;
     protected static final SystemServiceBinder<IBatteryPropertiesRegistrar> batteryPropertiesRegistrar;
     protected static final SystemServiceBinder<ILauncherApps> launcherApps;
+    protected static final SystemServiceBinder<IWindowManager> windowManager;
 
     static {
         appOps = new SystemServiceBinder<>(
@@ -67,5 +69,8 @@ class Services {
 
         launcherApps = new SystemServiceBinder<>(
                 "launcherapps", ILauncherApps.Stub::asInterface);
+
+        windowManager = new SystemServiceBinder<>(
+                "window", IWindowManager.Stub::asInterface);
     }
 }
