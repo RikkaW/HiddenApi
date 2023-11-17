@@ -26,8 +26,17 @@ public class PermissionManagerApis {
         }
     }
 
-    public static void grantRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int userId) throws RemoteException {
-        if (Build.VERSION.SDK_INT >= 30) {
+    public static void grantRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int deviceId, int userId) throws RemoteException {
+        if (Build.VERSION.SDK_INT >= 34) {
+            IPermissionManager perm = permissionManager.get();
+            Objects.requireNonNull(perm);
+
+            try {
+                perm.grantRuntimePermission(packageName, permissionName, deviceId, userId);
+            }catch (NoSuchMethodError e) {
+                perm.grantRuntimePermission(packageName, permissionName, userId);
+            }
+        } else if (Build.VERSION.SDK_INT >= 30) {
             IPermissionManager perm = permissionManager.get();
             Objects.requireNonNull(perm);
             perm.grantRuntimePermission(packageName, permissionName, userId);
@@ -38,8 +47,17 @@ public class PermissionManagerApis {
         }
     }
 
-    public static void revokeRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int userId) throws RemoteException {
-        if (Build.VERSION.SDK_INT >= 30) {
+    public static void revokeRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int deviceId, int userId) throws RemoteException {
+        if (Build.VERSION.SDK_INT >= 34) {
+            IPermissionManager perm = permissionManager.get();
+            Objects.requireNonNull(perm);
+
+            try {
+                perm.revokeRuntimePermission(packageName, permissionName, deviceId, userId, (String) null);
+            } catch (NoSuchMethodError e) {
+                perm.revokeRuntimePermission(packageName, permissionName, userId, (String) null);
+            }
+        } else if (Build.VERSION.SDK_INT >= 30) {
             IPermissionManager perm = permissionManager.get();
             Objects.requireNonNull(perm);
 
