@@ -11,7 +11,6 @@ import android.os.RemoteException;
 import android.permission.IPermissionManager;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
@@ -26,15 +25,25 @@ public class PermissionManagerApis {
         }
     }
 
-    public static void grantRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int deviceId, int userId) throws RemoteException {
+    public static void grantRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int userId) throws RemoteException {
+        grantRuntimePermission(packageName, permissionName, "default:0", userId);
+    }
+
+    public static void grantRuntimePermission(@Nullable String packageName, @Nullable String permissionName, String persistentDeviceId, int userId) throws RemoteException {
         if (Build.VERSION.SDK_INT >= 34) {
             IPermissionManager perm = permissionManager.get();
             Objects.requireNonNull(perm);
 
             try {
-                perm.grantRuntimePermission(packageName, permissionName, deviceId, userId);
-            }catch (NoSuchMethodError e) {
-                perm.grantRuntimePermission(packageName, permissionName, userId);
+                // Android 14 QPR3 beta 2
+                perm.grantRuntimePermission(packageName, permissionName, persistentDeviceId, userId);
+            } catch (NoSuchMethodError e) {
+                try {
+                    // Android 14 QPR2
+                    perm.grantRuntimePermission(packageName, permissionName, 0, userId);
+                } catch (NoSuchMethodError e2) {
+                    perm.grantRuntimePermission(packageName, permissionName, userId);
+                }
             }
         } else if (Build.VERSION.SDK_INT >= 30) {
             IPermissionManager perm = permissionManager.get();
@@ -47,15 +56,25 @@ public class PermissionManagerApis {
         }
     }
 
-    public static void revokeRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int deviceId, int userId) throws RemoteException {
+    public static void revokeRuntimePermission(@Nullable String packageName, @Nullable String permissionName, int userId) throws RemoteException {
+        revokeRuntimePermission(packageName, permissionName, "default:0", userId);
+    }
+
+    public static void revokeRuntimePermission(@Nullable String packageName, @Nullable String permissionName, String persistentDeviceId, int userId) throws RemoteException {
         if (Build.VERSION.SDK_INT >= 34) {
             IPermissionManager perm = permissionManager.get();
             Objects.requireNonNull(perm);
 
             try {
-                perm.revokeRuntimePermission(packageName, permissionName, deviceId, userId, (String) null);
+                // Android 14 QPR3 beta 2
+                perm.revokeRuntimePermission(packageName, permissionName, persistentDeviceId, userId, (String) null);
             } catch (NoSuchMethodError e) {
-                perm.revokeRuntimePermission(packageName, permissionName, userId, (String) null);
+                try {
+                    // Android 14 QPR2
+                    perm.revokeRuntimePermission(packageName, permissionName, 0, userId, (String) null);
+                } catch (NoSuchMethodError e2) {
+                    perm.revokeRuntimePermission(packageName, permissionName, userId, (String) null);
+                }
             }
         } else if (Build.VERSION.SDK_INT >= 30) {
             IPermissionManager perm = permissionManager.get();
@@ -110,7 +129,7 @@ public class PermissionManagerApis {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return permissionManager.get().getPermissionGroupInfo(groupName, flags);
         } else {
-            return  packageManager.get().getPermissionGroupInfo(groupName, flags);
+            return packageManager.get().getPermissionGroupInfo(groupName, flags);
         }
     }
 

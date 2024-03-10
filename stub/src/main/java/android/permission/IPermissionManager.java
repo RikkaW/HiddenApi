@@ -18,6 +18,9 @@ public interface IPermissionManager extends IInterface {
     void grantRuntimePermission(String packageName, String permissionName, int deviceId, int userId)
             throws RemoteException;
 
+     void grantRuntimePermission(String packageName, String permissionName, String persistentDeviceId, int userId)
+            throws RemoteException;
+
     void revokeRuntimePermission(String packageName, String permissionName, int userId)
             throws RemoteException;
 
@@ -25,6 +28,9 @@ public interface IPermissionManager extends IInterface {
             throws RemoteException;
 
     void revokeRuntimePermission(String packageName, String permissionName, int deviceId, int userId, String reason)
+            throws RemoteException;
+
+    void revokeRuntimePermission(String packageName, String permissionName, String persistentDeviceId, int userId, String reason)
             throws RemoteException;
 
     int getPermissionFlags(String permissionName, String packageName, int userId)
