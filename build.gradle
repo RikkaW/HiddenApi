@@ -87,16 +87,17 @@ subprojects {
             def signingKey = findProperty("signingKey")
             def signingPassword = findProperty("signingPassword")
             def secretKeyRingFile = findProperty("signing.secretKeyRingFile")
+            def gnuPgDir = new File(System.getProperty("user.home") + "/.gnupg/private-keys-v1.d")
 
-            /*if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
+            if (gnuPgDir.isDirectory() && gnuPgDir.list().length > 0) {
+                useGpgCmd()
+                sign publishing.publications
+            } else if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
                 sign publishing.publications
             } else if (signingKey != null) {
                 useInMemoryPgpKeys(signingKey, signingPassword)
                 sign publishing.publications
-            }*/
-            useGpgCmd()
-            sign configurations.archives
-            sign publishing.publications.mavenJava
+            }
         }
     }
 }
