@@ -12,19 +12,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 17
-      uses: actions/setup-java@v3
+    - uses: actions/checkout@v4
+    - name: set up JDK 21
+      uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
-        cache: gradle
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        dependency-graph: generate-and-submit
+        build-scan-publish: true
+        build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+        build-scan-terms-of-use-agree: "yes"
     - name: Build with Gradle
       run: |
         echo 'org.gradle.jvmargs=-Xmx2048m -XX:+UseParallelGC' >> gradle.properties
         ./gradlew publishToMavenLocal
     - name: Upload build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: mavenlocal-artifact
         path: ~/.m2
+        include-hidden-files: true
