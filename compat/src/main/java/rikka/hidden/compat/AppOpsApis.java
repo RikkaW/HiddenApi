@@ -13,7 +13,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.util.Preconditions;
 
 import com.android.internal.app.IAppOpsActiveCallback;
 import com.android.internal.app.IAppOpsNotedCallback;
@@ -24,6 +23,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
+
+import rikka.hidden.compat.util.Preconditions;
 
 @SuppressWarnings({"unused"})
 public class AppOpsApis {
