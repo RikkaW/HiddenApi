@@ -15,6 +15,9 @@ public interface IProcessObserver {
     // from Q beta 3
     void onForegroundServicesChanged(int pid, int uid, int serviceTypes) throws RemoteException;
 
+    // from android-14.0.0_r50
+    void onProcessStarted(int pid, int processUid, int packageUid, String packageName, String processName) throws RemoteException;
+
     abstract class Stub extends Binder implements IProcessObserver {
 
     }

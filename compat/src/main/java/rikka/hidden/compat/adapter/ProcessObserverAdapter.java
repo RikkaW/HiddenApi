@@ -18,4 +18,8 @@ public class ProcessObserverAdapter extends IProcessObserver.Stub {
     public void onForegroundServicesChanged(int pid, int uid, int serviceTypes) throws RemoteException {
         // from Q beta 3
     }
+
+    public void onProcessStarted(int pid, int processUid, int packageUid, String packageName, String processName) throws RemoteException {
+        // from android-14.0.0_r50
+    }
 }
