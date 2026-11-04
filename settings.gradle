@@ -14,7 +14,7 @@ plugins {
     id("com.android.settings") version "8.10.0"
 }
 android {
-    compileSdk = 36
+    compileSdk = 37
     minSdk = 21
     targetSdk = 36
     buildToolsVersion = "36.0.0"

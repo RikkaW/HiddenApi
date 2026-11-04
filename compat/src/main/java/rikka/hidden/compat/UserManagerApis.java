@@ -25,17 +25,15 @@ public class UserManagerApis {
     @NonNull
     public static List<UserInfo> getUsers(boolean excludePartial, boolean excludeDying, boolean excludePreCreated) throws RemoteException {
         IUserManager um = userManager.get();
-        List<UserInfo> list;
-        if (Build.VERSION.SDK_INT >= 30) {
-            list = um.getUsers(excludePartial, excludeDying, excludePreCreated);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Build.VERSION.SDK_INT < Build.VERSION_CODES.BAKLAVA) {
+            return um.getUsers(excludePartial, excludeDying, excludePreCreated);
         } else {
             try {
-                list = um.getUsers(excludeDying);
+                return um.getUsers(excludeDying);
             } catch (NoSuchMethodError e) {
-                list = um.getUsers(excludePartial, excludeDying, excludePreCreated);
+                return um.getUsers(excludePartial, excludeDying, excludePreCreated);
             }
         }
-        return list;
     }
 
     public static List<UserInfo> getUsersNoThrow(boolean excludePartial, boolean excludeDying, boolean excludePreCreated) {

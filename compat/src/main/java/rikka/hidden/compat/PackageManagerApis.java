@@ -5,6 +5,7 @@ import static rikka.hidden.compat.Services.packageManager;
 import android.annotation.SuppressLint;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageManager;
+import android.content.pm.IPackageManagerV37;
 import android.content.pm.PackageInfo;
 import android.content.pm.ParceledListSlice;
 import android.content.pm.ProviderInfo;
@@ -17,6 +18,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import dev.rikka.tools.refine.Refine;
 
 import rikka.buildcompat.BuildCompat;
 
@@ -78,18 +81,17 @@ public class PackageManagerApis {
         }
     }
 
-    @SuppressLint("NewApi")
     @Nullable
     public static ParceledListSlice<PackageInfo> getInstalledPackages(long flags, int userId) throws RemoteException {
-        if (BuildCompat.isAtLeastT()) {
-            //noinspection unchecked
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            return Refine.<IPackageManagerV37>unsafeCast(packageManager.get())
+                    .getInstalledPackages(flags, userId);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return packageManager.get().getInstalledPackages(flags, userId);
         } else {
-            //noinspection unchecked
             return packageManager.get().getInstalledPackages((int) flags, userId);
         }
     }
-
 
     @NonNull
     public static List<PackageInfo> getInstalledPackagesNoThrow(long flags, int userId) {
