@@ -21,15 +21,13 @@ import java.util.List;
 
 import dev.rikka.tools.refine.Refine;
 
-import rikka.buildcompat.BuildCompat;
-
 @SuppressWarnings("unused")
 public class PackageManagerApis {
 
     @SuppressLint("NewApi")
     @Nullable
     public static PackageInfo getPackageInfo(@Nullable String packageName, long flags, int userId) throws RemoteException {
-        if (BuildCompat.isAtLeastT()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return packageManager.get().getPackageInfo(packageName, flags, userId);
         } else {
             return packageManager.get().getPackageInfo(packageName, (int) flags, userId);
@@ -39,7 +37,7 @@ public class PackageManagerApis {
     @SuppressLint("NewApi")
     @Nullable
     public static ApplicationInfo getApplicationInfo(@Nullable String packageName, long flags, int userId) throws RemoteException {
-        if (BuildCompat.isAtLeastT()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return packageManager.get().getApplicationInfo(packageName, flags, userId);
         } else {
             return packageManager.get().getApplicationInfo(packageName, (int) flags, userId);
@@ -72,11 +70,9 @@ public class PackageManagerApis {
     @SuppressLint("NewApi")
     @Nullable
     public static ParceledListSlice<ApplicationInfo> getInstalledApplications(long flags, int userId) throws RemoteException {
-        if (BuildCompat.isAtLeastT()) {
-            //noinspection unchecked
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return packageManager.get().getInstalledApplications(flags, userId);
         } else {
-            //noinspection unchecked
             return packageManager.get().getInstalledApplications((int) flags, userId);
         }
     }
@@ -139,7 +135,7 @@ public class PackageManagerApis {
     @SuppressLint("NewApi")
     public static int getPackageUid(String packageName, long flags, int userId) throws RemoteException {
         IPackageManager pm = packageManager.get();
-        if (BuildCompat.isAtLeastT()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return pm.getPackageUid(packageName, flags, userId);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return pm.getPackageUid(packageName, (int) flags, userId);
@@ -164,7 +160,7 @@ public class PackageManagerApis {
     @SuppressLint("NewApi")
     @Nullable
     public static ProviderInfo resolveContentProvider(String name, long flags, int userId) throws RemoteException {
-        if (BuildCompat.isAtLeastT()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return packageManager.get().resolveContentProvider(name, flags, userId);
         } else {
             return packageManager.get().resolveContentProvider(name, (int) flags, userId);
