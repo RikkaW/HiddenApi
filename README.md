@@ -12,6 +12,15 @@ Unify all hidden APIs used by Rikka apps into a library.
 
 ## Changelog
 
+### 4.5.0
+
+- Fix `getUsers` `getInstalledPackages` on Android 17 (#11)
+
+### 4.4.0
+
+- Add `IProcessObserver.onProcessStarted()`
+- Add `VMRuntime`
+
 ### 4.3.0
 
 - Add some `IWindowManager` APIs
