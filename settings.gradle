@@ -1,28 +1,50 @@
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
         mavenLocal()
     }
     plugins {
-        id("com.android.application") version "8.10.0"
-        id("com.android.library") version "8.10.0"
+        def agp = "9.5.0"
+        id("com.android.application") version agp
+        id("com.android.library") version agp
+        id("com.android.settings") version agp
         id("dev.rikka.tools.refine") version "4.4.0"
     }
 }
 plugins {
-    id("com.android.settings") version "8.10.0"
+    id("com.android.settings")
 }
 android {
-    compileSdk = 37
-    minSdk = 21
-    targetSdk = 36
-    buildToolsVersion = "36.0.0"
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 2
+        }
+    }
+    minSdk {
+        version = release(21)
+    }
+    targetSdk {
+        version = release(37)
+    }
+    buildToolsVersion = "37.0.0"
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google {
+            content {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
         mavenLocal()
     }

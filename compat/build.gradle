@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    enableKotlin = false
     namespace = "rikka.hidden.compat"
     buildFeatures {
         buildConfig false
