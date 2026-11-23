@@ -1,6 +1,7 @@
 package android.app;
 
 import android.content.IIntentReceiver;
+import android.content.IIntentSender;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Binder;
@@ -78,6 +79,34 @@ public interface IActivityManager extends IInterface {
 
     void unregisterReceiver(IIntentReceiver receiver)
             throws RemoteException;
+
+    IIntentSender getIntentSender(
+            int type, String packageName, IBinder token,
+            String resultWho, int requestCode, Intent[] intents, String[] resolvedTypes,
+            int flags, Bundle options, int userId) throws RemoteException;
+
+    void cancelIntentSender(IIntentSender sender) throws RemoteException;
+
+    Intent getIntentForIntentSender(IIntentSender sender) throws RemoteException;
+
+    String getTagForIntentSender(IIntentSender sender, String prefix) throws RemoteException;
+
+    int sendIntentSender(IIntentSender target,
+                         int code, Intent intent, String resolvedType,
+                         IIntentReceiver finishedReceiver, String requiredPermission,
+                         Bundle options) throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    int sendIntentSender(IIntentSender target, IBinder whitelistToken,
+                         int code, Intent intent, String resolvedType,
+                         IIntentReceiver finishedReceiver, String requiredPermission,
+                         Bundle options) throws RemoteException;
+
+    @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    int sendIntentSender(IApplicationThread caller, IIntentSender target, IBinder whitelistToken,
+                         int code, Intent intent, String resolvedType,
+                         IIntentReceiver finishedReceiver, String requiredPermission,
+                         Bundle options) throws RemoteException;
 
     boolean isUserRunning(int userId, int flags)
             throws RemoteException;

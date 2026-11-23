@@ -15,6 +15,8 @@ Unify all hidden APIs used by Rikka apps into a library.
 ### 4.5.0
 
 - Fix `getUsers` `getInstalledPackages` on Android 17 (#11)
+- Add `IntentSender` APIs
+- Add `ActivityThread.getApplicationThread()`
 
 ### 4.4.0
 
